@@ -22,4 +22,7 @@ if (jQuery.cookie('cc_cookie_accept') == "cc_cookie_accept") {
     }
 
 
+for diazo I guess you need to add a rule for the the CookieCuttr div somewhere high up your rules
+
+<append css:theme="body" css:content="body.cc-cookies">
 
