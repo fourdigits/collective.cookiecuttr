@@ -42,7 +42,9 @@ js_template = """
     (function($) {
         $(document).ready(function () {
             $.cookieCuttr({cookieAnalyticsMessage: "%s",
-                           cookieAcceptButtonText: "%s"});
+                           cookieAcceptButtonText: "%s",
+                           cookieWhatAreTheyLink: false,
+                           cookieWhatAreLinkText: ''});
         })
     })(jQuery);
 </script>
