@@ -4,7 +4,7 @@ import os
 version = '1.0'
 
 long_description = (
-    open('README.txt').read()
+    open('README.rst').read()
     + '\n' +
     'Contributors\n'
     '============\n'
@@ -24,9 +24,9 @@ setup(name='collective.cookiecuttr',
         "Programming Language :: Python",
         ],
       keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      author='Franklin Kingma',
+      author_email='franklin@fourdigits.nl',
+      url='http://github.com/kingel/collective.cookiecuttr',
       license='gpl',
       packages=find_packages('src'),
       package_dir={'': 'src'},
