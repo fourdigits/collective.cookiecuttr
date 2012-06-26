@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object>
+  <order manager="plone.htmlhead" skinname="*">
+   <viewlet name="plone.resourceregistries" />
+   <viewlet name="collective.cookiecuttr" />
+  </order>
+</object>

@@ -1,0 +1,20 @@
+<configure
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.cookiecuttr">
+
+    <browser:viewlet
+        name="collective.cookiecuttr"
+        manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+        class="collective.cookiecuttr.browser.viewlet.CookieCuttrViewlet"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        name="cookiecuttr-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class="collective.cookiecuttr.browser.controlpanel.CookieCuttrSettingsControlPanel"
+        permission="cmf.ManagePortal"
+        />
+
+</configure>
