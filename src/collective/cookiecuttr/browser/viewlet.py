@@ -3,6 +3,7 @@ from zope.viewlet.interfaces import IViewlet
 
 from Products.Five.browser import BrowserView
 from Products.CMFPlone.utils import safe_unicode
+from Products.CMFPlone.utils import getToolByName
 
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
@@ -30,9 +31,15 @@ class CookieCuttrViewlet(BrowserView):
 
     def render(self):
         if self.available():
-            snippet = safe_unicode(js_template % (self.settings.cookiecuttr_text,
-                                                  self.settings.cookiecuttr_accept_button,
-                                                  ))
+            root = getToolByName(self, 'portal_url')
+            root = root.getPortalObject()
+            try:
+                link = root.restrictedTraverse(str(self.settings.cookiecuttr_link)).absolute_url()
+            except:
+                link = ''
+            snippet = safe_unicode(js_template % (link,
+                                                  self.settings.cookiecuttr_text,
+                                                  self.settings.cookiecuttr_accept_button))
             return snippet
         return ""
 
@@ -41,10 +48,11 @@ js_template = """
 
     (function($) {
         $(document).ready(function () {
-            $.cookieCuttr({cookieAnalyticsMessage: "%s",
+            $.cookieCuttr({cookieAnalytics: false,
+                           cookiePolicyLink: "%s",
+                           cookieMessage: "%s",
                            cookieAcceptButtonText: "%s",
-                           cookieWhatAreTheyLink: false,
-                           cookieWhatAreLinkText: ''});
+                           });
         })
     })(jQuery);
 </script>
