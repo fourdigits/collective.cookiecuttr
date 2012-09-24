@@ -1,7 +1,6 @@
 from zope import schema
 from zope.interface import Interface
 from zope.i18nmessageid import MessageFactory
-from plone.app.textfield import RichText
 
 _ = MessageFactory('collective.cookiecuttr')
 
@@ -30,16 +29,12 @@ class ICookieCuttrSettings(Interface):
     text = schema.TextLine(title=_(u"Text to show your visitor"),
                                        description=_(u"", default=u""),
                                        required=False,
-                                       default=u"""We use cookies.
-                                       <a href='{{cookiePolicyLink}}'
-                                       title='read about our cookies'>
-                                       Read everything</a>""")
+                                       default=u"We use cookies. <a href='{{cookiePolicyLink}}' title='read about our cookies'>Read everything</a>")
 
     link = schema.TextLine(title=_(u"Link to page"),
                                  required=False,)
 
-    accept_button = schema.TextLine(title=_(u"""Text to show in
-      the Accept button"""),
-                                       description=_(u"", default=u""),
-                                       required=False,
-                                       default=_(u"Accept cookies"))
+    accept_button = schema.TextLine(title=_(u"Text to show in the Accept button"),
+                                    description=_(u"", default=u""),
+                                    required=False,
+                                    default=_(u"Accept cookies"))
