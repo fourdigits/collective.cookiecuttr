@@ -27,15 +27,19 @@ class ICookieCuttrSettings(Interface):
                                   required=False,
                                   default=False,)
 
-    cookiecuttr_text = schema.TextLine(title=_(u"Text to show your visitor"),
+    text = schema.TextLine(title=_(u"Text to show your visitor"),
                                        description=_(u"", default=u""),
                                        required=False,
-                                       default=u"We use cookies. <a href='{{cookiePolicyLink}}' title='read about our cookies'>Read everything</a>")
+                                       default=u"""We use cookies.
+                                       <a href='{{cookiePolicyLink}}'
+                                       title='read about our cookies'>
+                                       Read everything</a>""")
 
-    cookiecuttr_link = schema.TextLine(title=_(u"Link to page"),
+    link = schema.TextLine(title=_(u"Link to page"),
                                  required=False,)
 
-    cookiecuttr_accept_button = schema.TextLine(title=_(u"Text to show in the Accept button"),
+    accept_button = schema.TextLine(title=_(u"""Text to show in
+      the Accept button"""),
                                        description=_(u"", default=u""),
                                        required=False,
                                        default=_(u"Accept cookies"))

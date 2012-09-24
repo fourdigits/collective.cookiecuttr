@@ -21,7 +21,8 @@ class CookieCuttrViewlet(BrowserView):
         self.request = request
         self.view = view
         self.manager = manager
-        self.settings = getUtility(IRegistry).forInterface(ICookieCuttrSettings)
+        registry = getUtility(IRegistry)
+        self.settings = registry.forInterface(ICookieCuttrSettings)
 
     def update(self):
         pass
@@ -34,12 +35,13 @@ class CookieCuttrViewlet(BrowserView):
             root = getToolByName(self, 'portal_url')
             root = root.getPortalObject()
             try:
-                link = root.restrictedTraverse(str(self.settings.cookiecuttr_link)).absolute_url()
+                location = root.restrictedTraverse(str(self.settings.link))
+                link = location.absolute_url()
             except:
                 link = ''
             snippet = safe_unicode(js_template % (link,
-                                                  self.settings.cookiecuttr_text,
-                                                  self.settings.cookiecuttr_accept_button))
+                                                  self.settings.text,
+                                                  self.settings.accept_button))
             return snippet
         return ""
 
