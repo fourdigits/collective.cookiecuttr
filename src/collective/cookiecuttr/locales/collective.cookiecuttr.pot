@@ -1,0 +1,57 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2012-09-24 08:50+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.cookiecuttr\n"
+
+#: ./../browser/controlpanel.py:10
+#: ./../interfaces.py:31
+msgid ""
+msgstr ""
+
+#: ./../interfaces.py:41
+msgid "Accept cookies"
+msgstr ""
+
+#: ./../profiles/default/controlpanel.xml
+msgid "CookieCuttr"
+msgstr ""
+
+#: ./../browser/controlpanel.py:9
+msgid "CookieCuttr settings"
+msgstr ""
+
+#: ./../interfaces.py:22
+msgid "Enable CookieCuttr"
+msgstr ""
+
+#: ./../interfaces.py:35
+msgid "Link to page"
+msgstr ""
+
+#: ./../interfaces.py:38
+msgid "Text to show in the Accept button"
+msgstr ""
+
+#: ./../interfaces.py:30
+msgid "Text to show your visitor"
+msgstr ""
+
+#. Default: "Toggle this to enable loading of the CookieCuttr plugin."
+#: ./../interfaces.py:23
+msgid "help_cookiecuttr_enable"
+msgstr ""
+
