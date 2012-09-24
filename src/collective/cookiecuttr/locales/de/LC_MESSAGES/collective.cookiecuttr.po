@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: 2012-09-24 11:03+0100\n"
+"Last-Translator: Ralph Jacobs <ralph@fourdigits.nl>\n"
+"Language-Team: Four Digits <support@fourdigits.nl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.cookiecuttr\n"
+
+#: ./../interfaces.py:40
+msgid "Accept cookies"
+msgstr "Cookies akzeptieren"
+
+#: ./../profiles/default/controlpanel.xml
+msgid "CookieCuttr"
+msgstr "CookieCuttr"
+
+#: ./../browser/controlpanel.py:9
+msgid "CookieCuttr settings"
+msgstr "CookieCuttr Einstellungen"
+
+#: ./../interfaces.py:21
+msgid "Enable CookieCuttr"
+msgstr "aktivieren CookieCuttr"
+
+#: ./../interfaces.py:34
+msgid "Link to page"
+msgstr "Link zur Seite"
+
+#: ./../interfaces.py:37
+msgid "Text to show in the Accept button"
+msgstr "Text in der Accept-Taste zeigen"
+
+#: ./../interfaces.py:29
+msgid "Text to show your visitor"
+msgstr "Text, um Ihre Besucher zeigen"
+
+#. Default: "Toggle this to enable loading of the CookieCuttr plugin."
+#: ./../interfaces.py:22
+msgid "help_cookiecuttr_enable"
+msgstr "Toggle dies Belastung des CookieCuttr Plugin zu aktivieren."
+

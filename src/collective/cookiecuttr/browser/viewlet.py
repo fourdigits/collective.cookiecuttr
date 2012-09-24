@@ -21,25 +21,34 @@ class CookieCuttrViewlet(BrowserView):
         self.request = request
         self.view = view
         self.manager = manager
-        self.settings = getUtility(IRegistry).forInterface(ICookieCuttrSettings)
+        registry = getUtility(IRegistry)
+        try:
+            self.settings = registry.forInterface(ICookieCuttrSettings)
+        except KeyError:
+            self.settings = None
 
     def update(self):
         pass
 
     def available(self):
-        return self.settings.cookiecuttr_enabled
+        if not self.settings:
+            return False
+        if self.settings.cookiecuttr_enabled:
+            return True
+        return False
 
     def render(self):
         if self.available():
             root = getToolByName(self, 'portal_url')
             root = root.getPortalObject()
             try:
-                link = root.restrictedTraverse(str(self.settings.cookiecuttr_link)).absolute_url()
+                location = root.restrictedTraverse(str(self.settings.link))
+                link = location.absolute_url()
             except:
                 link = ''
             snippet = safe_unicode(js_template % (link,
-                                                  self.settings.cookiecuttr_text,
-                                                  self.settings.cookiecuttr_accept_button))
+                                                  self.settings.text,
+                                                  self.settings.accept_button))
             return snippet
         return ""
 
