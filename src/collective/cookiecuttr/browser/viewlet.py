@@ -31,11 +31,7 @@ class CookieCuttrViewlet(BrowserView):
         pass
 
     def available(self):
-        if not self.settings:
-            return False
-        if self.settings.cookiecuttr_enabled:
-            return True
-        return False
+        return self.settings and self.settings.cookiecuttr_enabled
 
     def render(self):
         if self.available():
