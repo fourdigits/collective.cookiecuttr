@@ -4,7 +4,7 @@ Changelog
 0.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- plone.resource is not used, removed dependency. Made override for anlytics viewlet [thepjot]
 
 
 0.4 (2012-09-25)

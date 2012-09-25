@@ -3,12 +3,12 @@ from zope.viewlet.interfaces import IViewlet
 
 from Products.Five.browser import BrowserView
 from Products.CMFPlone.utils import safe_unicode
-from Products.CMFPlone.utils import getToolByName
 
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 
 from collective.cookiecuttr.interfaces import ICookieCuttrSettings
+from plone.app.layout.analytics.view import AnalyticsViewlet
 
 
 class CookieCuttrViewlet(BrowserView):
@@ -40,6 +40,16 @@ class CookieCuttrViewlet(BrowserView):
                                                   self.settings.accept_button))
             return snippet
         return ""
+
+
+class CookieCuttrAwareAnalyticsViewlet(AnalyticsViewlet):
+
+    def render(self):
+        if self.request.cookies.get('cc_cookie_accept', None):
+            return super(CookieCuttrAwareAnalyticsViewlet, self).render()
+        else:
+            return ""
+
 
 js_template = """
 <script type="text/javascript">
