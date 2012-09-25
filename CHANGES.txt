@@ -4,7 +4,7 @@ Changelog
 0.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Changed link functionality so it works with external links [ralphjacobs].
 
 
 0.3 (2012-09-25)

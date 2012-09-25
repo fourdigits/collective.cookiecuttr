@@ -35,14 +35,7 @@ class CookieCuttrViewlet(BrowserView):
 
     def render(self):
         if self.available():
-            root = getToolByName(self, 'portal_url')
-            root = root.getPortalObject()
-            try:
-                location = root.restrictedTraverse(str(self.settings.link))
-                link = location.absolute_url()
-            except:
-                link = ''
-            snippet = safe_unicode(js_template % (link,
+            snippet = safe_unicode(js_template % (self.settings.link,
                                                   self.settings.text,
                                                   self.settings.accept_button))
             return snippet
