@@ -16,7 +16,7 @@ long_description = (
 
 setup(name='collective.cookiecuttr',
       version=version,
-      description="",
+      description="Integration package for cookiecuttr, european guidelines",
       long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
