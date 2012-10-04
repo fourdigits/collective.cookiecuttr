@@ -59,7 +59,7 @@ js_template = """
             $.cookieCuttr({cookieAnalytics: false,
                            cookiePolicyLink: "%s",
                            cookieMessage: "%s",
-                           cookieAcceptButtonText: "%s",
+                           cookieAcceptButtonText: "%s"
                            });
         })
     })(jQuery);

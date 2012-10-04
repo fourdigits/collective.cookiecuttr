@@ -5,6 +5,7 @@ Changelog
 ----------------
 
 - plone.resource is not used, removed dependency. Made override for anlytics viewlet [thepjot]
+- javascript is not python, do not put commas at the end of arrays as it will break in ie [kingel]
 
 
 0.4 (2012-09-25)
