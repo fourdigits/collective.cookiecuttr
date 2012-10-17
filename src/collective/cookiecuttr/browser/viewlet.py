@@ -45,22 +45,27 @@ class CookieCuttrViewlet(BrowserView):
 class CookieCuttrAwareAnalyticsViewlet(AnalyticsViewlet):
 
     def render(self):
-        if self.request.cookies.get('cc_cookie_accept', None):
-            return super(CookieCuttrAwareAnalyticsViewlet, self).render()
-        else:
-            return ""
+        settings = getUtility(IRegistry).forInterface(ICookieCuttrSettings)
+        available = settings and settings.cookiecuttr_enabled
 
+        # Render if CookieCuttr is 'Not available' or Cookies were accepted
+        if not available or self.request.cookies.get('cc_cookie_accept', None):
+            return super(CookieCuttrAwareAnalyticsViewlet, self).render()
+
+        return ""
 
 js_template = """
 <script type="text/javascript">
 
     (function($) {
         $(document).ready(function () {
-            $.cookieCuttr({cookieAnalytics: false,
-                           cookiePolicyLink: "%s",
-                           cookieMessage: "%s",
-                           cookieAcceptButtonText: "%s"
-                           });
+            if($.cookieCuttr) {
+                $.cookieCuttr({cookieAnalytics: false,
+                               cookiePolicyLink: "%s",
+                               cookieMessage: "%s",
+                               cookieAcceptButtonText: "%s"
+                               });
+                }
         })
     })(jQuery);
 </script>
