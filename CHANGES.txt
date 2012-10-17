@@ -4,7 +4,8 @@ Changelog
 0.6 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- cleaned up GA-viewlet [Jan Branbergen]
+- Fix GA-viewlet when cookiecuttr is disabled [Jan Branbergen]
 
 
 0.5 (2012-10-04)
