@@ -39,12 +39,16 @@ setup(name='collective.cookiecuttr',
           'plone.app.layout',
           # -*- Extra requirements: -*-
       ],
-      extras_require={'test': ['plone.app.testing']},
+      extras_require={
+          'test': [
+              'plone.app.testing',
+              'mocker',
+              'plone.mocktestcase',
+          ],
+      },
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
       target = plone
       """,
-      setup_requires=["PasteScript"],
-      paster_plugins=["templer.localcommands"],
       )
