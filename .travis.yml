@@ -1,0 +1,13 @@
+language: python
+python:
+ - 2.7
+
+install:
+ - python bootstrap.py
+ - bin/buildout
+
+script:
+ - bin/test
+
+ notifications:
+  email: franklin@fourdigits.nl
