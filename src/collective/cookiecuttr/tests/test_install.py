@@ -6,17 +6,17 @@ from collective.cookiecuttr.testing import\
     COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING
 
 
-class TestExample(unittest.TestCase):
+class TestInstall(unittest.TestCase):
 
     layer = COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING
-    
+
     def setUp(self):
         self.app = self.layer['app']
         self.portal = self.layer['portal']
         self.qi_tool = getToolByName(self.portal, 'portal_quickinstaller')
-    
+
     def test_product_is_installed(self):
-        """ Validate that our products GS profile has been run and the product 
+        """ Validate that our products GS profile has been run and the product
             installed
         """
         pid = 'collective.cookiecuttr'
