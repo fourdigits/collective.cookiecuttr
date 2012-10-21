@@ -1,4 +1,5 @@
-.. contents::
+.. image:: https://secure.travis-ci.org/fourdigits/collective.cookiecuttr.png
+    :target: http://travis-ci.org/fourdigits/collective.cookiecuttr
 
 Introduction
 ============
