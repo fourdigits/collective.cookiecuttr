@@ -8,17 +8,36 @@ This is an integration package for the `CookieCuttr jQuery plugin`_
 
 Installation
 ============
-Add the package name ot the eggs part of your zope2 instance and rerun buildout, after a restart
+Add the package name to the eggs part of your zope2 instance and rerun buildout, after a restart
 you can install the package from the quickinstaller.
 
 Setup
 =====
-Go to <http://yoursite/@@cookiecuttr-settings> to make some default settings, and turn on the package.
+The package comes with a controlpanel which is accessible through your plone_control_panel or `directly`_.
+Here you can enable the plugin and change some settings.
 
-I use it to be able to decline cookies for Google Analytics; I do this by wrapping the
-analytics code in <http://yoursite/@@site-controlpanel> in this javascript:
+Text to show your visitor
 
-if (jQuery.cookie('cc_cookie_accept') == "cc_cookie_accept") {
+    We use cookies. <a href='{{cookiePolicyLink}}' title='read about our cookies'>Read everything</a
+
+
+Link to page, link to the page which explains your cookiepolicy, for example http://plone.org or /Plone/cookies
+
+    http://plone.org
+
+Text to show in the Accept button
+
+    Accept if you like cookies!
+
+
+Usage
+=====
+
+We to be able to decline tracking cookies for Google Analytics; This is done by overriding the default analytics viewlet and check for cookiecuttr.
+
+You can also wrap your own javascript code:
+
+    if (jQuery.cookie('cc_cookie_accept') == "cc_cookie_accept") {
     ...
     }
 
@@ -28,3 +47,4 @@ for diazo I guess you need to add a rule for the the CookieCuttr div somewhere h
 <append css:theme="body" css:content="body.cc-cookies">
 
 .. _CookieCuttr jQuery plugin: http://cookiecuttr.com/
+.. _directly: http://localhost:8080/Plone/@@cookiecuttr-settings
