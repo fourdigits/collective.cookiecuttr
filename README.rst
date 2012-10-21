@@ -3,7 +3,7 @@
 
 Introduction
 ============
-This is an integration package for the CookieCuttr javascript plugin <http://cookiecuttr.com/>
+This is an integration package for the `CookieCuttr jQuery plugin`_
 
 
 Installation
@@ -27,3 +27,4 @@ for diazo I guess you need to add a rule for the the CookieCuttr div somewhere h
 
 <append css:theme="body" css:content="body.cc-cookies">
 
+.. _CookieCuttr jQuery plugin: http://cookiecuttr.com/
