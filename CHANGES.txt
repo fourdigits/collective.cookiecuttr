@@ -4,9 +4,11 @@ Changelog
 0.7 (unreleased)
 ----------------
 
-- Added Jan and Ralph to the contributors, thanks!
-- Started with test
-- Travis setup
+- Added Jan and Ralph to the contributors, thanks! [kingel]
+- Started with tests [kingel]
+- Travis setup [kingel]
+- Added controlpanel test [kingel]
+- Added support for sona [kingel]
 
 
 0.6 (2012-10-19)
@@ -45,4 +47,3 @@ Changelog
 ----------------
 
 - Package created using templer
-  []

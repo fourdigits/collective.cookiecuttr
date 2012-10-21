@@ -1,3 +1,4 @@
 - Franklin Kingma, Original Author
 - Jan Branbergen, fixes and improvements
 - Ralph Jacobs, fixes and improvements
+- Peter Uittenbroek, fixes and improvements
