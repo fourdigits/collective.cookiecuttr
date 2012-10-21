@@ -7,6 +7,7 @@
         manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
         class=".browser.viewlet.CookieCuttrAwareAnalyticsViewlet"
         permission="zope2.View"
+        layer=".interfaces.ICookieCuttr"
         />
 
 </configure>

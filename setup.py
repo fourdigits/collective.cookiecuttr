@@ -37,6 +37,7 @@ setup(name='collective.cookiecuttr',
           'setuptools',
           'plone.app.registry',
           'plone.app.layout',
+          'plone.browserlayer',
           # -*- Extra requirements: -*-
       ],
       extras_require={

@@ -10,11 +10,9 @@ from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.registry.interfaces import IRegistry
 
-# from collective.cover.config import DEFAULT_SEARCHABLE_CONTENT_TYPES
-# from collective.cover.config import PROJECTNAME
-
 from collective.cookiecuttr.interfaces import ICookieCuttrSettings
-from collective.cookiecuttr.testing import COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING
+from collective.cookiecuttr.testing import \
+                        COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING
 
 PROJECTNAME = 'collective.cookiecuttr'
 
@@ -85,5 +83,4 @@ class RegistryTestCase(unittest.TestCase):
         # XXX: I haven't found a better way to test this; anyone?
         qi = self.portal['portal_quickinstaller']
         qi.uninstallProducts(products=[PROJECTNAME])
-        self.assertRaises(KeyError, self.get_record, 'layouts')
-        self.assertRaises(KeyError, self.get_record, 'searchable_content_types')
+        self.assertRaises(KeyError, self.get_record, 'cookiecuttr_enabled')

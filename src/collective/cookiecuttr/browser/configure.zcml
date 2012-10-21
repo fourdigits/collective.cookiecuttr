@@ -8,6 +8,7 @@
         manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
         class="collective.cookiecuttr.browser.viewlet.CookieCuttrViewlet"
         permission="zope2.View"
+        layer="..interfaces.ICookieCuttr"
         />
 
     <browser:page
