@@ -16,6 +16,10 @@ class CollectiveCookiecuttr(PloneSandboxLayer):
         xmlconfig.file('configure.zcml',
                        collective.cookiecuttr,
                        context=configurationContext)
+        xmlconfig.file('overrides.zcml',
+                       collective.cookiecuttr,
+                       context=configurationContext)
+
 
 
     def setUpPloneSite(self, portal):

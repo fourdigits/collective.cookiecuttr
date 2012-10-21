@@ -50,7 +50,7 @@ class CookieCuttrAwareAnalyticsViewlet(AnalyticsViewlet):
         available = settings and settings.cookiecuttr_enabled
 
         # Render if CookieCuttr is 'Not available' or Cookies were accepted
-        if available or self.request.cookies.get('cc_cookie_accept', None):
+        if available and self.request.cookies.get('cc_cookie_accept', None):
             return super(CookieCuttrAwareAnalyticsViewlet, self).render()
 
         return ""
