@@ -21,11 +21,8 @@ class CookieCuttrViewlet(BrowserView):
         self.request = request
         self.view = view
         self.manager = manager
-        registry = getUtility(IRegistry)
-        try:
-            self.settings = registry.forInterface(ICookieCuttrSettings)
-        except KeyError:
-            self.settings = None
+        self.settings = getUtility(IRegistry).forInterface(
+                                                        ICookieCuttrSettings)
 
     def update(self):
         pass
@@ -49,7 +46,7 @@ class CookieCuttrAwareAnalyticsViewlet(AnalyticsViewlet):
 
         available = settings and settings.cookiecuttr_enabled
 
-        # Render if CookieCuttr is 'Not available' or Cookies were accepted
+        # Render if CookieCuttr is enabled and Cookies were accepted
         if available and self.request.cookies.get('cc_cookie_accept', None):
             return super(CookieCuttrAwareAnalyticsViewlet, self).render()
 
