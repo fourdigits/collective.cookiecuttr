@@ -23,6 +23,28 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         self.app = self.layer['app']
         self.portal = self.layer['portal']
 
+    def test_viewlet_is_not_installed(self):
+        """ looking up and updating the manager should not list our viewlet
+            when our browserlayer is not applied, eq. when our product is not
+            installed.
+        """
+        request = self.app.REQUEST
+        context = self.portal
+
+        view = View(context, request)
+
+        manager_name = 'plone.htmlhead'
+        manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+
+        self.failUnless(manager)
+
+        manager.update()
+
+        my_viewlet = [v for v in manager.viewlets if v.__name__ == 'collective.cookiecuttr']
+
+        self.failUnlessEqual(len(my_viewlet), 0)
+
+
     def test_viewlet_is_present(self):
         """ looking up and updating the manager should list our viewlet
         """
@@ -30,8 +52,8 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         # are applied to the request during traversal in the publisher.  We
         # need to do the same thing manually here
         request = self.app.REQUEST
-
         context = self.portal
+
         alsoProvides(request, ICookieCuttr)
 
         view = View(context, request)
