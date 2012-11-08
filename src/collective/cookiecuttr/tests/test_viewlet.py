@@ -203,7 +203,8 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         request.cookies['cc_cookie_accept'] = True
         self.failUnlessEqual(analytics_viewlet.render(), '')
 
+
         # CookieCuttr enabled, user has set cookie
         my_viewlet[0].settings.cookiecuttr_enabled = True
-        request.cookies['cc_cookie_accept'] = True
+        request.cookies['cc_cookie_accept'] = 'cc_cookie_accept'
         self.failUnlessEqual(analytics_viewlet.render(), "analytics test")

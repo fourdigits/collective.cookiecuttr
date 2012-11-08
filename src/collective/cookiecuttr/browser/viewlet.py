@@ -42,7 +42,6 @@ class CookieCuttrViewlet(BrowserView):
 class CookieCuttrAwareAnalyticsViewlet(AnalyticsViewlet):
 
     def render(self):
-        import pdb; pdb.set_trace( )
         settings = getUtility(IRegistry).forInterface(ICookieCuttrSettings)
 
         available = settings and settings.cookiecuttr_enabled
