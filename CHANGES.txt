@@ -1,6 +1,7 @@
 Changelog
 =========
 
+
 0.7 (unreleased)
 ----------------
 
@@ -9,6 +10,7 @@ Changelog
 - Travis setup [kingel]
 - Added controlpanel test [kingel]
 - Added support for sonar [kingel]
+- Fixed viewlet rendering
 
 
 0.6 (2012-10-19)
