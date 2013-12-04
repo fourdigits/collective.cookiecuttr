@@ -1,6 +1,5 @@
 import unittest2 as unittest
 
-from zope.interface import directlyProvides
 from zope.component import queryMultiAdapter
 from zope.viewlet.interfaces import IViewletManager
 from Products.Five.browser import BrowserView as View
