@@ -5,7 +5,10 @@ Changelog
 0.7.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- When product is installed but disabled, show the standard contents
+  of the analytics viewlet.
+  Fixes https://github.com/fourdigits/collective.cookiecuttr/issues/5
+  [maurits]
 
 
 0.7.1 (2012-11-08)
