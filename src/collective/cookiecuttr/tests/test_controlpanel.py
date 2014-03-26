@@ -73,6 +73,14 @@ class RegistryTestCase(unittest.TestCase):
         # check default
         self.assertNotEqual(self.settings.accept_button, None)
 
+    def test_records_value_types(self):
+        text = getattr(self.settings, 'text')
+        link = getattr(self.settings, 'link')
+        accept_button = getattr(self.settings, 'accept_button')
+        self.assertTrue(type(text), type([]))
+        self.assertTrue(type(link), type([]))
+        self.assertTrue(type(accept_button), type([]))
+
     def get_record(self, record):
         """ Helper function; it raises KeyError if the record is not in the
         registry.
