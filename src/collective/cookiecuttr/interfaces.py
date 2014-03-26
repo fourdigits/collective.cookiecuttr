@@ -21,16 +21,10 @@ class ITextRowSchema(Interface):
     language = schema.TextLine(
         title=_(u"Language"),
         description=_(u'Enter the language code. Ex.: en'),
-        default=u'',
     )
 
     text = schema.Text(
         title=_(u"Text"),
-        default=u"We use cookies."
-                 " <a href='{{cookiePolicyLink}}' "
-                 "title='read about our cookies'>"
-                 "Read everything</a>"
-
     )
 
 
@@ -39,13 +33,10 @@ class ITextLinkSchema(Interface):
     language = schema.TextLine(
         title=_(u"Language"),
         description=_(u'Enter the language code. Ex.: en'),
-        default=u'',
     )
 
     text = schema.Text(
         title=_(u"Link to page"),
-        default=u"",
-
     )
 
 
@@ -54,13 +45,10 @@ class ITextAcceptSchema(Interface):
     language = schema.TextLine(
         title=_(u"Language"),
         description=_(u'Enter the language code. Ex.: en'),
-        default=u'',
     )
 
     text = schema.Text(
         title=_(u"Text to show in the Accept button"),
-        default=u"Accept cookies"
-
     )
 
 
@@ -88,33 +76,36 @@ class ICookieCuttrSettings(Interface):
 
     text = schema.List(
         title=_(u"Text to show your visitor"),
-        description=_(u"", default=u""),
         required=False,
         value_type=DictRow(
             title=u"Value",
             schema=ITextRowSchema
-        )
+        ),
+        default=[dict(language=u'en', text=u"We use cookies."
+                 " <a href='{{cookiePolicyLink}}' "
+                 "title='read about our cookies'>"
+                 "Read everything</a>")],
     )
     widget(text=DataGridFieldFactory)
 
     link = schema.List(
         title=_(u"Link to page"),
-        description=_(u"", default=u""),
         required=False,
         value_type=DictRow(
             title=u"Value",
             schema=ITextLinkSchema
-        )
+        ),
+        default=[dict(language=u"en", text=u" ")],
     )
     widget(link=DataGridFieldFactory)
 
     accept_button = schema.List(
         title=_(u"Text to show in the Accept button"),
-        description=_(u"", default=u""),
         required=False,
         value_type=DictRow(
             title=u"Value",
             schema=ITextAcceptSchema
-        )
+        ),
+        default=[dict(language=u"en", text=u"Accept cookies")],
     )
     widget(accept_button=DataGridFieldFactory)
