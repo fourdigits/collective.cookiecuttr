@@ -22,6 +22,16 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+ <genericsetup:upgradeStep
+      title="Use collective.z3cform.datagridfield to make it multilingual-aware"
+      description=""
+      source="*"
+      destination="0002"
+      handler=".upgrades.upgrade_to_0002"
+      profile="collective.cookiecuttr:default" />
+
+
+
   <!-- -*- extra stuff goes here -*- -->
   <browser:resourceDirectory
       name="collective.cookiecuttr"
