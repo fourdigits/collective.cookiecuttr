@@ -38,6 +38,7 @@ setup(name='collective.cookiecuttr',
           'plone.app.registry',
           'plone.app.layout',
           'plone.browserlayer',
+          'collective.z3cform.datagridfield'
           # -*- Extra requirements: -*-
       ],
       extras_require={
