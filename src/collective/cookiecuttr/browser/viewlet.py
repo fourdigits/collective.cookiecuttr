@@ -59,6 +59,12 @@ class CookieCuttrViewlet(BrowserView):
             dic['accept'] = item.get('text')
             data[item.get('language')] = dic
 
+        data['_default_'] = dict(
+            link=link[0].get('link'),
+            text=text[0].get('text'),
+            default=accept[0].get('text'),
+        )
+
         return data
 
     def available(self):
@@ -67,9 +73,10 @@ class CookieCuttrViewlet(BrowserView):
     def render(self):
         if self.available():
             dic = self.values_to_dict()
-            link = dic.get(self.language()).get('link')
-            text = dic.get(self.language()).get('text')
-            accept_button = dic.get(self.language()).get('accept')
+            default = dic.get('_default_')
+            link = dic.get(self.language(), default).get('link')
+            text = dic.get(self.language(), default).get('text')
+            accept_button = dic.get(self.language(), default).get('accept')
             snippet = safe_unicode(js_template % (link,
                                                   text,
                                                   accept_button))
