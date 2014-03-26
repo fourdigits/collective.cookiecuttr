@@ -5,6 +5,8 @@ Changelog
 0.7.2 (unreleased)
 ------------------
 
+- Implement implied consent [erral]
+
 - Use collective.z3cform.datagridfield and make it multilingual aware [erral]
 
 
