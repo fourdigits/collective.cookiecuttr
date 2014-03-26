@@ -77,6 +77,15 @@ class ICookieCuttrSettings(Interface):
                                   required=False,
                                   default=False,)
 
+    implied_consent = schema.Bool(title=_(u"Implied consent"),
+                                  description=_(u"help_cookiecuttr_inplied",
+                                  default=u"If enabled, the analytics viewlet"
+                                           " will be rendered even when the "
+                                           " message is not accepted"
+                                  ),
+                                  required=False,
+                                  default=False,)
+
     text = schema.List(
         title=_(u"Text to show your visitor"),
         description=_(u"", default=u""),
