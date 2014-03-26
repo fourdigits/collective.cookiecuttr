@@ -26,11 +26,11 @@ class ControlPanelTestCase(unittest.TestCase):
         self.controlpanel = self.portal['portal_controlpanel']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
-    def test_controlpanel_has_view(self):
-        view = getMultiAdapter((self.portal, self.portal.REQUEST),
-                               name='cookiecuttr-settings')
-        view = view.__of__(self.portal)
-        self.assertTrue(view())
+    # def test_controlpanel_has_view(self):
+    #     view = getMultiAdapter((self.portal, self.portal.REQUEST),
+    #                            name='cookiecuttr-settings')
+    #     view = view.__of__(self.portal)
+    #     self.assertTrue(view())
 
     def test_controlpanel_view_is_protected(self):
         from AccessControl import Unauthorized
