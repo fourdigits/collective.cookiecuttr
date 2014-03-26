@@ -42,29 +42,28 @@ class CookieCuttrViewlet(BrowserView):
         link = self.settings.link
         text = self.settings.text
         accept = self.settings.accept_button
-
         data = {}
-        for item in link:
-            dic = data.get(item.get('language'), {})
-            dic['link'] = item.get('text')
-            data[item.get('language')] = dic
+        if link and text and accept:
+            for item in link:
+                dic = data.get(item.get('language'), {})
+                dic['link'] = item.get('text')
+                data[item.get('language')] = dic
 
-        for item in text:
-            dic = data.get(item.get('language'), {})
-            dic['text'] = item.get('text')
-            data[item.get('language')] = dic
+            for item in text:
+                dic = data.get(item.get('language'), {})
+                dic['text'] = item.get('text')
+                data[item.get('language')] = dic
 
-        for item in accept:
-            dic = data.get(item.get('language'), {})
-            dic['accept'] = item.get('text')
-            data[item.get('language')] = dic
+            for item in accept:
+                dic = data.get(item.get('language'), {})
+                dic['accept'] = item.get('text')
+                data[item.get('language')] = dic
 
-        data['_default_'] = dict(
-            link=link[0].get('link'),
-            text=text[0].get('text'),
-            default=accept[0].get('text'),
-        )
-
+            data['_default_'] = dict(
+                link=link[0].get('text'),
+                text=text[0].get('text'),
+                default=accept[0].get('text'),
+            )
         return data
 
     def available(self):
@@ -73,14 +72,19 @@ class CookieCuttrViewlet(BrowserView):
     def render(self):
         if self.available():
             dic = self.values_to_dict()
-            default = dic.get('_default_')
-            link = dic.get(self.language(), default).get('link')
-            text = dic.get(self.language(), default).get('text')
-            accept_button = dic.get(self.language(), default).get('accept')
-            snippet = safe_unicode(js_template % (link,
-                                                  text,
-                                                  accept_button))
-            return snippet
+            if dic:
+                default = dic.get('_default_')
+                link = dic.get(self.language(), default).get('link')
+                text = dic.get(self.language(), default).get('text')
+                accept_button = dic.get(self.language(), default).get('accept')
+                snippet = safe_unicode(js_template % (link,
+                                                      text,
+                                                      accept_button))
+                return snippet
+            else:
+                from logging import getLogger
+                log = getLogger(__name__)
+                log.debug('There are no available messages')
         return ""
 
 
