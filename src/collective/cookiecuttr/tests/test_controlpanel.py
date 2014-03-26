@@ -66,6 +66,7 @@ class RegistryTestCase(unittest.TestCase):
 
     def test_records_in_registry(self):
         self.assertTrue(hasattr(self.settings, 'cookiecuttr_enabled'))
+        self.assertTrue(hasattr(self.settings, 'implied_consent'))
         self.assertTrue(hasattr(self.settings, 'text'))
         self.assertTrue(hasattr(self.settings, 'link'))
         self.assertTrue(hasattr(self.settings, 'accept_button'))
