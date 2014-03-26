@@ -140,7 +140,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
 
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: "None",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
 
     def test_viewlet_analytics(self):
         """ looking up and updating the manager should list our viewlet
@@ -173,8 +173,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         self.failUnlessEqual(len(my_viewlet), 1)
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
-
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: "None",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
 
         footer_manager = queryMultiAdapter((context, request, view),
                                            IViewletManager,
