@@ -1,3 +1,4 @@
+from zope.component import getMultiAdapter
 from zope.interface import implements
 from zope.viewlet.interfaces import IViewlet
 
@@ -9,6 +10,8 @@ from plone.registry.interfaces import IRegistry
 
 from collective.cookiecuttr.interfaces import ICookieCuttrSettings
 from plone.app.layout.analytics.view import AnalyticsViewlet
+
+from plone.memoize.view import memoize
 
 
 class CookieCuttrViewlet(BrowserView):
@@ -27,14 +30,49 @@ class CookieCuttrViewlet(BrowserView):
     def update(self):
         pass
 
+    @memoize
+    def language(self):
+        pps = getMultiAdapter((self.context, self.request),
+            name=u'plone_portal_state'
+        )
+        return pps.language()
+
+    @memoize
+    def values_to_dict(self):
+        link = self.settings.link
+        text = self.settings.text
+        accept = self.settings.accept_button
+
+        data = {}
+        for item in link:
+            dic = data.get(item.get('language'), {})
+            dic['link'] = item.get('text')
+            data[item.get('language')] = dic
+
+        for item in text:
+            dic = data.get(item.get('language'), {})
+            dic['text'] = item.get('text')
+            data[item.get('language')] = dic
+
+        for item in accept:
+            dic = data.get(item.get('language'), {})
+            dic['accept'] = item.get('text')
+            data[item.get('language')] = dic
+
+        return data
+
     def available(self):
         return self.settings and self.settings.cookiecuttr_enabled
 
     def render(self):
         if self.available():
-            snippet = safe_unicode(js_template % (self.settings.link,
-                                                  self.settings.text,
-                                                  self.settings.accept_button))
+            dic = self.values_to_dict()
+            link = dic.get(self.language()).get('link')
+            text = dic.get(self.language()).get('text')
+            accept_button = dic.get(self.language()).get('accept')
+            snippet = safe_unicode(js_template % (link,
+                                                  text,
+                                                  accept_button))
             return snippet
         return ""
 
