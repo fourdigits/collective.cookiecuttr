@@ -23,8 +23,8 @@
       />
 
  <genericsetup:upgradeStep
-      title="Use collective.z3cform.datagridfield to make it multilingual-aware"
-      description=""
+      title="Multilingual and implied consent"
+      description="Use collective.z3cform.datagridfield to make it multilingual-aware and add implied consent option"
       source="*"
       destination="0002"
       handler=".upgrades.upgrade_to_0002"
