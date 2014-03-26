@@ -5,7 +5,7 @@ Changelog
 0.7.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use collective.z3cform.datagridfield and make it multilingual aware [erral]
 
 
 0.7.1 (2012-11-08)
