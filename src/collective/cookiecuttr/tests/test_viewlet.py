@@ -140,7 +140,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
 
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: "None",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
 
     def test_viewlet_analytics(self):
         """ looking up and updating the manager should list our viewlet
@@ -173,8 +173,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         self.failUnlessEqual(len(my_viewlet), 1)
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
-
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: "None",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
 
         footer_manager = queryMultiAdapter((context, request, view),
                                            IViewletManager,
@@ -207,4 +206,56 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         # CookieCuttr enabled, user has set cookie
         my_viewlet[0].settings.cookiecuttr_enabled = True
         request.cookies['cc_cookie_accept'] = 'cc_cookie_accept'
+        self.failUnlessEqual(analytics_viewlet.render(), "analytics test")
+
+    def test_viewlet_implied_consent(self):
+        """ check the implied consent setting
+        """
+        # our viewlet is registered for a browser layer.  Browser layers
+        # are applied to the request during traversal in the publisher.  We
+        # need to do the same thing manually here
+        request = self.app.REQUEST
+        context = self.portal
+        alsoProvides(request, ICookieCuttr)
+
+        view = View(context, request)
+
+        # finally, you need the name of the manager you want to find
+        manager_name = 'plone.htmlhead'
+
+        # viewlet managers are found by Multi-Adapter lookup
+        manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+
+        self.failUnless(manager)
+
+        # calling update() on a manager causes it to set up its viewlets
+        manager.update()
+
+        # now our viewlet should be in the list of viewlets for the manager
+        # we can verify this by looking for a viewlet with the name we used
+        # to register the viewlet in zcml
+        my_viewlet = [v for v in manager.viewlets if v.__name__ == 'collective.cookiecuttr']
+
+        self.failUnlessEqual(len(my_viewlet), 1)
+
+        my_viewlet[0].settings.cookiecuttr_enabled = True
+        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+
+        footer_manager = queryMultiAdapter((context, request, view),
+                                           IViewletManager,
+                                           'plone.portalfooter',
+                                           default=None)
+
+        footer_manager.update()
+
+        analytics_viewlet = [v for v in footer_manager.viewlets if v.__name__ == 'plone.analytics'][0]
+
+        # Set something for the analytics viewlet
+        self.portal.portal_properties.site_properties.webstats_js = "analytics test"
+
+        # CookieCuttr enabled, implied_consent enabled, user has no cookie,
+        # analytics viewlet is rendered
+        my_viewlet[0].settings.cookiecuttr_enabled = True
+        my_viewlet[0].settings.implied_consent = True
+        request.cookies['cc_cookie_accept'] = False
         self.failUnlessEqual(analytics_viewlet.render(), "analytics test")

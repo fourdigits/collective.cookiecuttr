@@ -6,6 +6,7 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.cookiecuttr">
 
+  <includeDependencies package="." />
   <five:registerPackage package="." initialize=".initialize" />
   <i18n:registerTranslations directory="locales" />
 
@@ -21,6 +22,16 @@
       description="Installs the collective.cookiecuttr package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+
+ <genericsetup:upgradeStep
+      title="Multilingual and implied consent"
+      description="Use collective.z3cform.datagridfield to make it multilingual-aware and add implied consent option"
+      source="*"
+      destination="0002"
+      handler=".upgrades.upgrade_to_0002"
+      profile="collective.cookiecuttr:default" />
+
+
 
   <!-- -*- extra stuff goes here -*- -->
   <browser:resourceDirectory
