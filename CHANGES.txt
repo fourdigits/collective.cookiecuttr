@@ -5,6 +5,8 @@ Changelog
 0.7.2 (unreleased)
 ------------------
 
+- Uninstall profile to delete registry configuration [erral]
+
 - Implement implied consent [erral]
 
 - Use collective.z3cform.datagridfield and make it multilingual aware [erral]
