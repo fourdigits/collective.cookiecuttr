@@ -236,8 +236,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         # CookieCuttr enabled, user has set cookie
         my_viewlet[0].settings.cookiecuttr_enabled = True
         request.cookies['cc_cookie_accept'] = 'cc_cookie_accept'
-
-        self.failUnlessEqual(analytics_viewlet.render(), "analytics test")
+        self.failUnlessEqual(analytics, self.webstats_js)
 
     def test_viewlet_implied_consent(self):
         """ check the implied consent setting
@@ -291,4 +290,4 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         request.cookies['cc_cookie_accept'] = False
         self.failUnlessEqual(analytics_viewlet.render(), "analytics test")
         analytics = self.get_analytics_viewlet_contents(context, request, view)
-        self.failUnlessEqual(analytics, self.webstats_js)
+
