@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import os
 
 version = '0.7.4.dev0'
 
