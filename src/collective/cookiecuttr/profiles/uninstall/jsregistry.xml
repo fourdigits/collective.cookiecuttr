@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+ <javascript
+    id="++resource++collective.cookiecuttr/jquery.cookie.js"
+    remove="True"/>
+
+ <javascript
+    id="++resource++collective.cookiecuttr/jquery.cookiecuttr.js"
+    remove="True"/>
+
+</object>
