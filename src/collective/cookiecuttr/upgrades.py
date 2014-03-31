@@ -20,9 +20,18 @@ def upgrade_to_0002(context, logger=None):
 
     # Get the existing values
     registry = queryUtility(IRegistry)
-    text = registry.get('collective.cookiecuttr.interfaces.ICookieCuttrSettings.text', u'')
-    link = registry.get('collective.cookiecuttr.interfaces.ICookieCuttrSettings.link', u'')
-    accept = registry.get('collective.cookiecuttr.interfaces.ICookieCuttrSettings.accept_button', u'')
+    text = registry.get('collective.cookiecuttr.interfaces.ICookieCuttrSettings.text', u' ')
+    link = registry.get('collective.cookiecuttr.interfaces.ICookieCuttrSettings.link', u' ')
+    accept = registry.get('collective.cookiecuttr.interfaces.ICookieCuttrSettings.accept_button', u' ')
+
+    if not text:
+        text = u' '
+
+    if not link:
+        link = u' '
+
+    if not accept:
+        accept = u' '
 
     # re-import profile
     portal_setup = getToolByName(context, 'portal_setup')
