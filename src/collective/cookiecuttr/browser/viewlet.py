@@ -25,7 +25,9 @@ class CookieCuttrViewlet(BrowserView):
         self.view = view
         self.manager = manager
         self.settings = getUtility(IRegistry).forInterface(
-                                                        ICookieCuttrSettings)
+            ICookieCuttrSettings,
+            check=False,
+        )
 
     def update(self):
         pass
