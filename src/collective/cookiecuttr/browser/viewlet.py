@@ -79,9 +79,13 @@ class CookieCuttrViewlet(BrowserView):
                 link = dic.get(self.language(), default).get('link')
                 text = dic.get(self.language(), default).get('text')
                 accept_button = dic.get(self.language(), default).get('accept')
+                location_bottom = 'false'
+                if self.settings.location_bottom:
+                    location_bottom = 'true'
                 snippet = safe_unicode(js_template % (link,
                                                       text,
-                                                      accept_button))
+                                                      accept_button,
+                                                      location_bottom))
                 return snippet
             else:
                 from logging import getLogger
@@ -117,7 +121,8 @@ js_template = """
                 $.cookieCuttr({cookieAnalytics: false,
                                cookiePolicyLink: "%s",
                                cookieMessage: "%s",
-                               cookieAcceptButtonText: "%s"
+                               cookieAcceptButtonText: "%s",
+                               cookieNotificationLocationBottom: %s
                                });
                 }
         })

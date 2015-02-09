@@ -74,6 +74,17 @@ class ICookieCuttrSettings(Interface):
                                   required=False,
                                   default=False,)
 
+    location_bottom = schema.Bool(
+        title=_(u"Show cookiecuttr at the bottom"),
+        description=_(
+            u"help_cookiecuttr_location_bottom",
+            default=u"If checked, the cookie message will be rendered at the "
+                     "bottom"
+            ),
+        required=False,
+        default=False,
+    )
+
     text = schema.List(
         title=_(u"Text to show your visitor"),
         required=False,
