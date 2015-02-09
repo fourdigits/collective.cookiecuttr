@@ -5,7 +5,8 @@ Changelog
 0.7.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Implement option to move cookie message to the bottom
+  [nightmarebadger]
 
 
 0.7.4 (2014-03-31)

@@ -3,3 +3,4 @@
 - Ralph Jacobs, fixes and improvements
 - Peter Uittenbroek, fixes and improvements
 - Mikel Larreategi, multilingual messages, implied consent and tests
+- Natan Žabkar (nightmarebadger), option to move cookie message to the bottom
