@@ -1,17 +1,15 @@
-from zope.component import getMultiAdapter
-from zope.interface import implements
-from zope.viewlet.interfaces import IViewlet
+# -*- coding: utf-8 -*-
 
-from Products.Five.browser import BrowserView
 from Products.CMFPlone.utils import safe_unicode
-
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
-
+from Products.Five.browser import BrowserView
 from collective.cookiecuttr.interfaces import ICookieCuttrSettings
 from plone.app.layout.analytics.view import AnalyticsViewlet
-
 from plone.memoize.view import memoize
+from plone.registry.interfaces import IRegistry
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.interface import implements
+from zope.viewlet.interfaces import IViewlet
 
 
 class CookieCuttrViewlet(BrowserView):
@@ -34,7 +32,8 @@ class CookieCuttrViewlet(BrowserView):
 
     @memoize
     def language(self):
-        pps = getMultiAdapter((self.context, self.request),
+        pps = getMultiAdapter(
+            (self.context, self.request),
             name=u'plone_portal_state'
         )
         return pps.language()

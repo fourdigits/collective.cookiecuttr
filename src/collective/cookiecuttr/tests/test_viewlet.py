@@ -1,22 +1,19 @@
-import unittest2 as unittest
+# -*- coding: utf-8 -*-
 
-from zope.component import queryMultiAdapter
-from zope.viewlet.interfaces import IViewletManager
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView as View
-
-# this time, we need to add an interface to the request
-from zope.interface import alsoProvides
-
-# The browserlayer
 from collective.cookiecuttr.interfaces import ICookieCuttr
 from collective.cookiecuttr.testing import\
     COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING
+from zope.component import queryMultiAdapter
+from zope.interface import alsoProvides
+from zope.viewlet.interfaces import IViewletManager
+
+import unittest2 as unittest
 
 
 class CookieCuttrViewletTestCase(unittest.TestCase):
-    """ test demonstrates that zcml registration variables worked properly
-    """
+    """Test demonstrates that zcml registration variables worked properly"""
     layer = COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING
 
     def setUp(self):
@@ -27,9 +24,9 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         pprops.site_properties.webstats_js = self.webstats_js
 
     def test_viewlet_is_not_installed(self):
-        """ looking up and updating the manager should not list our viewlet
-            when our browserlayer is not applied, eq. when our product is not
-            installed.
+        """Looking up and updating the manager should not list our viewlet
+           when our browserlayer is not applied, eq. when our product is not
+           installed.
         """
         request = self.app.REQUEST
         context = self.portal
@@ -37,13 +34,19 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         view = View(context, request)
 
         manager_name = 'plone.htmlhead'
-        manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+        manager = queryMultiAdapter(
+            (context, request, view),
+            IViewletManager,
+            manager_name,
+            default=None,
+        )
 
         self.failUnless(manager)
 
         manager.update()
 
-        my_viewlet = [v for v in manager.viewlets if v.__name__ == 'collective.cookiecuttr']
+        my_viewlet = [v for v in manager.viewlets
+                      if v.__name__ == 'collective.cookiecuttr']
 
         self.failUnlessEqual(len(my_viewlet), 0)
 
@@ -55,7 +58,12 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         # Get the contents of the analytics viewlet or return a string
         # explaining what went wrong..
         manager_name = 'plone.portalfooter'
-        manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+        manager = queryMultiAdapter(
+            (context, request, view),
+            IViewletManager,
+            manager_name,
+            default=None,
+        )
         if manager is None:
             return 'No viewlet manager %s found.' % manager_name
         manager.update()
@@ -67,8 +75,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         return analytics_viewlet[0].render()
 
     def test_viewlet_is_present(self):
-        """ looking up and updating the manager should list our viewlet
-        """
+        """Looking up and updating the manager should list our viewlet"""
         # our viewlet is registered for a browser layer.  Browser layers
         # are applied to the request during traversal in the publisher.  We
         # need to do the same thing manually here
@@ -83,7 +90,12 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         manager_name = 'plone.htmlhead'
 
         # viewlet managers are found by Multi-Adapter lookup
-        manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+        manager = queryMultiAdapter(
+            (context, request, view),
+            IViewletManager,
+            manager_name,
+            default=None,
+        )
 
         self.failUnless(manager)
 
@@ -93,7 +105,8 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         # now our viewlet should be in the list of viewlets for the manager
         # we can verify this by looking for a viewlet with the name we used
         # to register the viewlet in zcml
-        my_viewlet = [v for v in manager.viewlets if v.__name__ == 'collective.cookiecuttr']
+        my_viewlet = [v for v in manager.viewlets
+                      if v.__name__ == 'collective.cookiecuttr']
 
         self.failUnlessEqual(len(my_viewlet), 1)
 
@@ -102,7 +115,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         self.assertEqual(analytics, self.webstats_js)
 
     def test_viewlet_cookiecuttr_disabled(self):
-        """ looking up and updating the manager should list our viewlet
+        """Looking up and updating the manager should list our viewlet
 
         But when disabled it should be empty.
         """
@@ -119,7 +132,12 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         manager_name = 'plone.htmlhead'
 
         # viewlet managers are found by Multi-Adapter lookup
-        manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+        manager = queryMultiAdapter(
+            (context, request, view),
+            IViewletManager,
+            manager_name,
+            default=None,
+        )
 
         self.failUnless(manager)
 
@@ -129,7 +147,8 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         # now our viewlet should be in the list of viewlets for the manager
         # we can verify this by looking for a viewlet with the name we used
         # to register the viewlet in zcml
-        my_viewlet = [v for v in manager.viewlets if v.__name__ == 'collective.cookiecuttr']
+        my_viewlet = [v for v in manager.viewlets
+                      if v.__name__ == 'collective.cookiecuttr']
 
         self.failUnlessEqual(len(my_viewlet), 1)
         self.failUnlessEqual(my_viewlet[0].render(), '')
@@ -139,7 +158,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         self.assertEqual(analytics, self.webstats_js)
 
     def test_viewlet_cookiecuttr_enabled(self):
-        """ looking up and updating the manager should list our viewlet
+        """Looking up and updating the manager should list our viewlet
 
         It is enabled so it should be filled.
         """
@@ -156,7 +175,12 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         manager_name = 'plone.htmlhead'
 
         # viewlet managers are found by Multi-Adapter lookup
-        manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+        manager = queryMultiAdapter(
+            (context, request, view),
+            IViewletManager,
+            manager_name,
+            default=None,
+        )
 
         self.failUnless(manager)
 
@@ -166,21 +190,39 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         # now our viewlet should be in the list of viewlets for the manager
         # we can verify this by looking for a viewlet with the name we used
         # to register the viewlet in zcml
-        my_viewlet = [v for v in manager.viewlets if v.__name__ == 'collective.cookiecuttr']
+        my_viewlet = [v for v in manager.viewlets
+                      if v.__name__ == 'collective.cookiecuttr']
 
         self.failUnlessEqual(len(my_viewlet), 1)
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
 
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies",\n                               cookieNotificationLocationBottom: false\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        expected = u"""
+<script type="text/javascript">
+
+    (function($) {
+        $(document).ready(function () {
+            if($.cookieCuttr) {
+                $.cookieCuttr({cookieAnalytics: false,
+                               cookiePolicyLink: " ",
+                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",
+                               cookieAcceptButtonText: "Accept cookies",
+                               cookieNotificationLocationBottom: false
+                               });
+                }
+        })
+    })(jQuery);
+</script>
+
+"""
+        self.failUnlessEqual(my_viewlet[0].render(), expected)
 
         # The analytics viewlet should be there and show nothing.
         analytics = self.get_analytics_viewlet_contents(context, request, view)
         self.assertEqual(analytics, '')
 
     def test_viewlet_analytics(self):
-        """ looking up and updating the manager should list our viewlet
-        """
+        """Looking up and updating the manager should list our viewlet"""
         # our viewlet is registered for a browser layer.  Browser layers
         # are applied to the request during traversal in the publisher.  We
         # need to do the same thing manually here
@@ -194,7 +236,12 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         manager_name = 'plone.htmlhead'
 
         # viewlet managers are found by Multi-Adapter lookup
-        manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+        manager = queryMultiAdapter(
+            (context, request, view),
+            IViewletManager,
+            manager_name,
+            default=None,
+        )
 
         self.failUnless(manager)
 
@@ -204,12 +251,31 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         # now our viewlet should be in the list of viewlets for the manager
         # we can verify this by looking for a viewlet with the name we used
         # to register the viewlet in zcml
-        my_viewlet = [v for v in manager.viewlets if v.__name__ == 'collective.cookiecuttr']
+        my_viewlet = [v for v in manager.viewlets
+                      if v.__name__ == 'collective.cookiecuttr']
 
         self.failUnlessEqual(len(my_viewlet), 1)
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies",\n                               cookieNotificationLocationBottom: false\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        expected = u"""
+<script type="text/javascript">
+
+    (function($) {
+        $(document).ready(function () {
+            if($.cookieCuttr) {
+                $.cookieCuttr({cookieAnalytics: false,
+                               cookiePolicyLink: " ",
+                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",
+                               cookieAcceptButtonText: "Accept cookies",
+                               cookieNotificationLocationBottom: false
+                               });
+                }
+        })
+    })(jQuery);
+</script>
+
+"""
+        self.failUnlessEqual(my_viewlet[0].render(), expected)
 
         # The analytics viewlet should be there and be empty.
         analytics = self.get_analytics_viewlet_contents(context, request, view)
@@ -239,8 +305,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         self.failUnlessEqual(analytics, self.webstats_js)
 
     def test_viewlet_implied_consent(self):
-        """ check the implied consent setting
-        """
+        """Check the implied consent setting"""
         # our viewlet is registered for a browser layer.  Browser layers
         # are applied to the request during traversal in the publisher.  We
         # need to do the same thing manually here
@@ -254,7 +319,12 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         manager_name = 'plone.htmlhead'
 
         # viewlet managers are found by Multi-Adapter lookup
-        manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+        manager = queryMultiAdapter(
+            (context, request, view),
+            IViewletManager,
+            manager_name,
+            default=None,
+        )
 
         self.failUnless(manager)
 
@@ -264,12 +334,31 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         # now our viewlet should be in the list of viewlets for the manager
         # we can verify this by looking for a viewlet with the name we used
         # to register the viewlet in zcml
-        my_viewlet = [v for v in manager.viewlets if v.__name__ == 'collective.cookiecuttr']
+        my_viewlet = [v for v in manager.viewlets
+                      if v.__name__ == 'collective.cookiecuttr']
 
         self.failUnlessEqual(len(my_viewlet), 1)
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies",\n                               cookieNotificationLocationBottom: false\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        expected = u"""
+<script type="text/javascript">
+
+    (function($) {
+        $(document).ready(function () {
+            if($.cookieCuttr) {
+                $.cookieCuttr({cookieAnalytics: false,
+                               cookiePolicyLink: " ",
+                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",
+                               cookieAcceptButtonText: "Accept cookies",
+                               cookieNotificationLocationBottom: false
+                               });
+                }
+        })
+    })(jQuery);
+</script>
+
+"""
+        self.failUnlessEqual(my_viewlet[0].render(), expected)
 
         footer_manager = queryMultiAdapter((context, request, view),
                                            IViewletManager,
@@ -278,10 +367,12 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
 
         footer_manager.update()
 
-        analytics_viewlet = [v for v in footer_manager.viewlets if v.__name__ == 'plone.analytics'][0]
+        analytics_viewlet = [v for v in footer_manager.viewlets
+                             if v.__name__ == 'plone.analytics'][0]
 
         # Set something for the analytics viewlet
-        self.portal.portal_properties.site_properties.webstats_js = "analytics test"
+        self.portal.portal_properties.site_properties.webstats_js = (
+            "analytics test")
 
         # CookieCuttr enabled, implied_consent enabled, user has no cookie,
         # analytics viewlet is rendered
@@ -293,7 +384,6 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
 
     def test_viewlet_location_bottom(self):
         """Check the location_bottom setting."""
-
         # our viewlet is registered for a browser layer.  Browser layers
         # are applied to the request during traversal in the publisher.  We
         # need to do the same thing manually here

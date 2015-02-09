@@ -23,7 +23,7 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
- <genericsetup:upgradeStep
+  <genericsetup:upgradeStep
       title="Multilingual and implied consent"
       description="Use collective.z3cform.datagridfield to make it multilingual-aware and add implied consent option"
       source="*"

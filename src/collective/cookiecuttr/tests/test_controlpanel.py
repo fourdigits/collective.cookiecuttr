@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 
-import unittest2 as unittest
-
-from zope.component import getMultiAdapter
-from zope.component import getUtility
-
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import logout
-from plone.app.testing import setRoles
-from plone.registry.interfaces import IRegistry
-
 from collective.cookiecuttr.interfaces import ICookieCuttrSettings
 from collective.cookiecuttr.testing import \
-                        COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING
+    COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING
+from plone.app.testing import logout
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
+
+import unittest2 as unittest
 
 PROJECTNAME = 'collective.cookiecuttr'
 
@@ -35,9 +32,11 @@ class ControlPanelTestCase(unittest.TestCase):
     def test_controlpanel_view_is_protected(self):
         from AccessControl import Unauthorized
         logout()
-        self.assertRaises(Unauthorized,
-                          self.portal.restrictedTraverse,
-                         '@@cookiecuttr-settings')
+        self.assertRaises(
+            Unauthorized,
+            self.portal.restrictedTraverse,
+            '@@cookiecuttr-settings',
+        )
 
     def test_controlpanel_installed(self):
         actions = [a.getAction(self)['id']
