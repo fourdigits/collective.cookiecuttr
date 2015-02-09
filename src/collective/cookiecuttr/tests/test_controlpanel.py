@@ -70,6 +70,7 @@ class RegistryTestCase(unittest.TestCase):
         self.assertTrue(hasattr(self.settings, 'text'))
         self.assertTrue(hasattr(self.settings, 'link'))
         self.assertTrue(hasattr(self.settings, 'accept_button'))
+        self.assertTrue(hasattr(self.settings, 'location_bottom'))
         # check default
         self.assertNotEqual(self.settings.accept_button, None)
 

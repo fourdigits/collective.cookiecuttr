@@ -172,7 +172,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
 
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies",\n                               cookieNotificationLocationBottom: false\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
 
         # The analytics viewlet should be there and show nothing.
         analytics = self.get_analytics_viewlet_contents(context, request, view)
@@ -209,7 +209,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         self.failUnlessEqual(len(my_viewlet), 1)
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies",\n                               cookieNotificationLocationBottom: false\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
 
         # The analytics viewlet should be there and be empty.
         analytics = self.get_analytics_viewlet_contents(context, request, view)
@@ -269,7 +269,7 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         self.failUnlessEqual(len(my_viewlet), 1)
 
         my_viewlet[0].settings.cookiecuttr_enabled = True
-        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies"\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
+        self.failUnlessEqual(my_viewlet[0].render(), u'\n<script type="text/javascript">\n\n    (function($) {\n        $(document).ready(function () {\n            if($.cookieCuttr) {\n                $.cookieCuttr({cookieAnalytics: false,\n                               cookiePolicyLink: " ",\n                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",\n                               cookieAcceptButtonText: "Accept cookies",\n                               cookieNotificationLocationBottom: false\n                               });\n                }\n        })\n    })(jQuery);\n</script>\n\n')
 
         footer_manager = queryMultiAdapter((context, request, view),
                                            IViewletManager,
@@ -291,3 +291,80 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         self.failUnlessEqual(analytics_viewlet.render(), "analytics test")
         analytics = self.get_analytics_viewlet_contents(context, request, view)
 
+    def test_viewlet_location_bottom(self):
+        """Check the location_bottom setting."""
+
+        # our viewlet is registered for a browser layer.  Browser layers
+        # are applied to the request during traversal in the publisher.  We
+        # need to do the same thing manually here
+        request = self.app.REQUEST
+        context = self.portal
+        alsoProvides(request, ICookieCuttr)
+
+        view = View(context, request)
+
+        # finally, you need the name of the manager you want to find
+        manager_name = 'plone.htmlhead'
+
+        # viewlet managers are found by Multi-Adapter lookup
+        manager = queryMultiAdapter(
+            (context, request, view),
+            IViewletManager,
+            manager_name,
+            default=None,
+        )
+
+        self.failUnless(manager)
+
+        # calling update() on a manager causes it to set up its viewlets
+        manager.update()
+
+        # now our viewlet should be in the list of viewlets for the manager
+        # we can verify this by looking for a viewlet with the name we used
+        # to register the viewlet in zcml
+        my_viewlet = [v for v in manager.viewlets
+                      if v.__name__ == 'collective.cookiecuttr']
+
+        self.failUnlessEqual(len(my_viewlet), 1)
+
+        my_viewlet[0].settings.cookiecuttr_enabled = True
+        expected = u"""
+<script type="text/javascript">
+
+    (function($) {
+        $(document).ready(function () {
+            if($.cookieCuttr) {
+                $.cookieCuttr({cookieAnalytics: false,
+                               cookiePolicyLink: " ",
+                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",
+                               cookieAcceptButtonText: "Accept cookies",
+                               cookieNotificationLocationBottom: false
+                               });
+                }
+        })
+    })(jQuery);
+</script>
+
+"""
+        self.failUnlessEqual(my_viewlet[0].render(), expected)
+        my_viewlet[0].settings.location_bottom = True
+
+        expected = u"""
+<script type="text/javascript">
+
+    (function($) {
+        $(document).ready(function () {
+            if($.cookieCuttr) {
+                $.cookieCuttr({cookieAnalytics: false,
+                               cookiePolicyLink: " ",
+                               cookieMessage: "We use cookies. <a href=\'{{cookiePolicyLink}}\' title=\'read about our cookies\'>Read everything</a>",
+                               cookieAcceptButtonText: "Accept cookies",
+                               cookieNotificationLocationBottom: true
+                               });
+                }
+        })
+    })(jQuery);
+</script>
+
+"""
+        self.failUnlessEqual(my_viewlet[0].render(), expected)
