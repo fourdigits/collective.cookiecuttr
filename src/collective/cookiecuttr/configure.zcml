@@ -31,6 +31,14 @@
       handler=".upgrades.upgrade_to_0002"
       profile="collective.cookiecuttr:default" />
 
+  <genericsetup:upgradeStep
+      title="Cookie message top or bottom location"
+      description="Add option to move cookie message to the bottom"
+      source="0002"
+      destination="0003"
+      handler=".upgrades.upgrade_from_0002_to_0003"
+      profile="collective.cookiecuttr:default" />
+
   <genericsetup:registerProfile
       name="uninstall"
       title="collective.cookiecuttr"
