@@ -17,7 +17,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="collective.cookiecuttr"
+      title="collective.cookiecuttr default profile"
       directory="profiles/default"
       description="Installs the collective.cookiecuttr package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -41,7 +41,7 @@
 
   <genericsetup:registerProfile
       name="uninstall"
-      title="collective.cookiecuttr"
+      title="collective.cookiecuttr uninstall profile"
       directory="profiles/uninstall"
       description="Uninstalls the collective.cookiecuttr package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
