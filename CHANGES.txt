@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.7.5 (unreleased)
+0.7.5 (2016-03-11)
 ------------------
 
 - Implement option to move cookie message to the bottom
