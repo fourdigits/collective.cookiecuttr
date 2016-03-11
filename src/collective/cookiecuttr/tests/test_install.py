@@ -1,9 +1,9 @@
-import unittest2 as unittest
+# -*- coding: utf-8 -*-
 
 from Products.CMFCore.utils import getToolByName
-
 from collective.cookiecuttr.testing import\
     COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING
+import unittest2 as unittest
 
 
 class TestInstall(unittest.TestCase):
@@ -16,8 +16,8 @@ class TestInstall(unittest.TestCase):
         self.qi_tool = getToolByName(self.portal, 'portal_quickinstaller')
 
     def test_product_is_installed(self):
-        """ Validate that our products GS profile has been run and the product
-            installed
+        """Validate that our products GS profile has been run and the product
+           installed
         """
         pid = 'collective.cookiecuttr'
         installed = [p['id'] for p in self.qi_tool.listInstalledProducts()]

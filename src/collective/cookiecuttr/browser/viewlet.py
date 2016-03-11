@@ -1,17 +1,15 @@
-from zope.component import getMultiAdapter
-from zope.interface import implements
-from zope.viewlet.interfaces import IViewlet
+# -*- coding: utf-8 -*-
 
-from Products.Five.browser import BrowserView
 from Products.CMFPlone.utils import safe_unicode
-
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
-
+from Products.Five.browser import BrowserView
 from collective.cookiecuttr.interfaces import ICookieCuttrSettings
 from plone.app.layout.analytics.view import AnalyticsViewlet
-
 from plone.memoize.view import memoize
+from plone.registry.interfaces import IRegistry
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.interface import implements
+from zope.viewlet.interfaces import IViewlet
 
 
 class CookieCuttrViewlet(BrowserView):
@@ -34,7 +32,8 @@ class CookieCuttrViewlet(BrowserView):
 
     @memoize
     def language(self):
-        pps = getMultiAdapter((self.context, self.request),
+        pps = getMultiAdapter(
+            (self.context, self.request),
             name=u'plone_portal_state'
         )
         return pps.language()
@@ -79,9 +78,13 @@ class CookieCuttrViewlet(BrowserView):
                 link = dic.get(self.language(), default).get('link')
                 text = dic.get(self.language(), default).get('text')
                 accept_button = dic.get(self.language(), default).get('accept')
+                location_bottom = 'false'
+                if self.settings.location_bottom:
+                    location_bottom = 'true'
                 snippet = safe_unicode(js_template % (link,
                                                       text,
-                                                      accept_button))
+                                                      accept_button,
+                                                      location_bottom))
                 return snippet
             else:
                 from logging import getLogger
@@ -117,7 +120,8 @@ js_template = """
                 $.cookieCuttr({cookieAnalytics: false,
                                cookiePolicyLink: "%s",
                                cookieMessage: "%s",
-                               cookieAcceptButtonText: "%s"
+                               cookieAcceptButtonText: "%s",
+                               cookieNotificationLocationBottom: %s
                                });
                 }
         })

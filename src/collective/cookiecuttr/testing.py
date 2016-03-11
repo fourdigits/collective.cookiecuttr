@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
+
+from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import IntegrationTesting
 from plone.app.testing import applyProfile
-
 from zope.configuration import xmlconfig
+
 
 class CollectiveCookiecuttr(PloneSandboxLayer):
 
@@ -19,10 +21,9 @@ class CollectiveCookiecuttr(PloneSandboxLayer):
                        collective.cookiecuttr,
                        context=configurationContext)
 
-
-
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'collective.cookiecuttr:default')
+
 
 COLLECTIVE_COOKIECUTTR_FIXTURE = CollectiveCookiecuttr()
 COLLECTIVE_COOKIECUTTR_INTEGRATION_TESTING = \
