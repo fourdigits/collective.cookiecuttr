@@ -23,37 +23,6 @@ class CookieCuttrViewletTestCase(unittest.TestCase):
         pprops = getToolByName(self.portal, 'portal_properties')
         pprops.site_properties.webstats_js = self.webstats_js
 
-    def test_viewlet_is_not_installed(self):
-        """Looking up and updating the manager should not list our viewlet
-           when our browserlayer is not applied, eq. when our product is not
-           installed.
-        """
-        request = self.app.REQUEST
-        context = self.portal
-
-        view = View(context, request)
-
-        manager_name = 'plone.htmlhead'
-        manager = queryMultiAdapter(
-            (context, request, view),
-            IViewletManager,
-            manager_name,
-            default=None,
-        )
-
-        self.failUnless(manager)
-
-        manager.update()
-
-        my_viewlet = [v for v in manager.viewlets
-                      if v.__name__ == 'collective.cookiecuttr']
-
-        self.failUnlessEqual(len(my_viewlet), 0)
-
-        # The analytics viewlet should be there and show its normal contents.
-        analytics = self.get_analytics_viewlet_contents(context, request, view)
-        self.assertEqual(analytics, self.webstats_js)
-
     def get_analytics_viewlet_contents(self, context, request, view):
         # Get the contents of the analytics viewlet or return a string
         # explaining what went wrong..
