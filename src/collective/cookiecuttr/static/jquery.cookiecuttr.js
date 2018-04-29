@@ -23,6 +23,7 @@
  */
 (function ($) {
     $.cookieCuttr = function (options) {
+        if ($('div.cc-cookies').length > 0) return;
         var defaults = {
             cookieCutter: false, // you'd like to enable the div/section/span etc. hide feature? change this to true
             cookieCutterDeclineOnly: false, // you'd like the CookieCutter to only hide when someone has clicked declined set this to true
